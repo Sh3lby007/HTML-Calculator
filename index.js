@@ -3,6 +3,8 @@
 // Whenever user clicks the number, it has to show on the calculator display
 // 
 
+// const { buildSlots } = require("@vue/compiler-core")
+
 
 // const numberButtons = document.querySelectorAll("[data-number]")
 // const operationButtons = document.querySelectorAll("[data-action]")
@@ -35,9 +37,11 @@
 
 let display = document.getElementById('calculator_display')
 
-const numberButtons = document.querySelectorAll('[data-number]')
+let numButtons = document.querySelectorAll('[data-number]')
 
 const opButtons = document.querySelectorAll('[data-action]')
+
+console.log(opButtons)
 
 const equalsButton = document.querySelector('[data-equal]')
 
@@ -45,11 +49,8 @@ const deleteButton = document.querySelector('[data-delete]')
 
 const clearButton = document.querySelector('[data-clear]')
 
-const divide = document.getElementById('key--operator')
-
-divide.addEventListener('click', showDisplay)
-
-function showDisplay() {
-    display.textContent = "÷"
-    console.log(divide)
-}
+numButtons.forEach(buttons => {
+    buttons.addEventListener('click', function showDisplay(event) {
+        console.log('num clicked', event)
+    })
+})
