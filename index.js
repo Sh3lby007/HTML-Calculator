@@ -3,9 +3,6 @@
 // Whenever user clicks the number, it has to show on the calculator display
 // 
 
-// const { buildSlots } = require("@vue/compiler-core")
-
-
 // const numberButtons = document.querySelectorAll("[data-number]")
 // const operationButtons = document.querySelectorAll("[data-action]")
 // let display = document.querySelector(".box")
@@ -37,11 +34,9 @@
 
 let display = document.getElementById('calculator_display')
 
-let numButtons = document.querySelectorAll('[data-number]')
+const numButtons = document.querySelectorAll('[data-number]')
 
 const opButtons = document.querySelectorAll('[data-action]')
-
-console.log(opButtons)
 
 const equalsButton = document.querySelector('[data-equal]')
 
@@ -49,8 +44,35 @@ const deleteButton = document.querySelector('[data-delete]')
 
 const clearButton = document.querySelector('[data-clear]')
 
-numButtons.forEach(buttons => {
-    buttons.addEventListener('click', function showDisplay(event) {
-        console.log('num clicked', event)
-    })
-})
+// For every button of the numButtons array, do XXX
+// 
+// Since query selector selects all data-number buttons and returns an array,
+// loop through all of them to attach click event handlers one by one.
+for (const button of numButtons)
+    // Event handler to append number value to display box on click
+    button.addEventListener('click', (event) =>
+        // display.textContent += event.target.attributes['data-number'].value
+        // https://javascript.plainenglish.io/how-to-get-and-set-the-value-of-a-data-attribute-with-javascript-f0a1bd44063d
+        display.textContent += event.target.dataset.number
+    )
+for (const button of opButtons)
+
+    button.addEventListener('click', (event) =>
+        display.textContent += event.target.attributes['data-action'].value
+    )
+
+
+clearButton.addEventListener('click', clear)
+
+function clear() {
+    display.textContent = " "
+}
+
+deleteButton.addEventListener('click', del)
+
+function del() {
+    display.textContent = display.textContent.slice(0, - 1)
+}
+
+
+
