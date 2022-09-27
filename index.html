@@ -22,7 +22,10 @@
       
       <div class="column is-full has-text-right">
       
-        <div class="box has-text-right m-6 " id="calculator_display" data-display></div>
+        <div class="box has-text-right m-6" data-display>
+          <div data-previous-operand class="previous-operand"></div>
+          <div data-current-operand class="current-operand"></div>
+        </div>
       </div>
       
     </div>
@@ -110,7 +113,7 @@
       </div>
 
       <div class="column is-half">
-        <button class="button is-fullwidth" data-equals>=</button>
+        <button class="button is-fullwidth" data-equal>=</button>
       </div>
     </div>
   
