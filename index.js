@@ -104,12 +104,18 @@ class Calculator {
         if (this.operation != null) {
             this.previousOperandTextElement.innerText =
                 // Backticks are an ES6 feature to create strings in JS.
-                // This string is to show the previous number and operator in the previous operand div, 
-                // which will enhance user experience and visibility.
+                // This string is to show the previous number and operator in the previous operand div, which will enhance user experience and visibility
                 `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
         } else {
             this.previousOperandTextElement.innerText = ''
         }
+    }
+
+    updateHistory() {
+        this.history =
+            this.getDisplayNumber(this.previousOperand) + this.operation
+        console.log(history)
+
     }
 }
 
@@ -124,8 +130,24 @@ const opButtons = document.querySelectorAll('[data-action]')
 const equalsButton = document.querySelector('[data-equal]')
 const deleteButton = document.querySelector('[data-delete]')
 const clearButton = document.querySelector('[data-clear]')
-const previousOperandTextElement = document.querySelector('[data-previous-operand]')
+const previousOperandTextElement = document.querySelector('[data-previous-operand')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
+let history = document.getElementById("history_log")
+
+// const testButton = document.getElementsByClassName('button')
+// console.log(testButton)
+// console.log(numButtons)
+
+// for (const button of testButton)
+//     button.addEventListener('click', () => {
+//         console.log('click')
+//     })
+
+// numButtons.forEach(button => {
+//     button.addEventListener('click', () => {
+//         console.log('clickedddd')
+//     })
+// })
 
 // This calculator object is used to hookup the variables declared previously
 
@@ -177,5 +199,6 @@ equalsButton.addEventListener('click', () => {
     // and then update the display accordingly.
     calculator.compute()
     calculator.updateDisplay()
+    calculator.updateHistory()
 })
 
