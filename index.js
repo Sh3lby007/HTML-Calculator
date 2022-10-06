@@ -68,6 +68,7 @@ class Calculator {
         }
         // Set the current operand as the result of the computation
         this.currentOperand = computation
+        computation = this.currentOperand
         this.operation = undefined
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
@@ -102,7 +103,7 @@ class Calculator {
             this.getDisplayNumber(this.currentOperand)
         // If the computed result is not equals to a null value, we want to display the pereviousOperandTextElement which is a concatenation of the previous operand and the operator.
         if (this.operation != null) {
-            this.previousOperandTextElement.innerText =
+            this.previousOperandTextElement.textContent =
                 // Backticks are an ES6 feature to create strings in JS.
                 // This string is to show the previous number and operator in the previous operand div, which will enhance user experience and visibility
                 `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
@@ -111,10 +112,11 @@ class Calculator {
         }
     }
 
-    updateHistory() {
-        this.history =
-            this.getDisplayNumber(this.previousOperand) + this.operation
-        console.log(history)
+    displayHistory() {
+        let historyString
+        historyString = `${this.currentOperand} ${this.previousOperand}` + '=' + resultData
+        // this.previousOperandTextElement.textContent.toString() + this.currentOperand + '=' + this.currentOperandTextElement.textContent.toString()
+        console.log(operation)
 
     }
 }
@@ -132,8 +134,10 @@ const deleteButton = document.querySelector('[data-delete]')
 const clearButton = document.querySelector('[data-clear]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
-let history = document.getElementById("history_log")
-
+const history = document.getElementById("history_log")
+var historyData = []
+var resultData = ''
+var expressionData = ''
 // const testButton = document.getElementsByClassName('button')
 // console.log(testButton)
 // console.log(numButtons)
@@ -199,6 +203,6 @@ equalsButton.addEventListener('click', () => {
     // and then update the display accordingly.
     calculator.compute()
     calculator.updateDisplay()
-    calculator.updateHistory()
+    calculator.displayHistory()
 })
 
