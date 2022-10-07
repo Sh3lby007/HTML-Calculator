@@ -37,6 +37,7 @@ class Calculator {
         this.previousOperand = this.currentOperand
         // Clearing out the current operand, giving it an empty string for new number to be inputed.
         this.currentOperand = ''
+        expressionData = `${this.previousOperand} ${this.operation} ${this.currentOperandTextElement.textContent}`
     }
     // Method to take place whenever equals button gets clicked 
     compute() {
@@ -68,7 +69,7 @@ class Calculator {
         }
         // Set the current operand as the result of the computation
         this.currentOperand = computation
-        computation = this.currentOperand
+        computation = resultData
         this.operation = undefined
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
@@ -91,7 +92,7 @@ class Calculator {
             integerDisplay = integerNumber.toLocaleString('en', { maximumFractionDigits: 0 })
         }
         if (decimalNumnber != null) {
-            return `${integerDisplay}.${decimalNumnber}`
+            return `${integerDisplay}.${decimalNumnber} `
         } else {
             return integerDisplay
         }
@@ -106,18 +107,26 @@ class Calculator {
             this.previousOperandTextElement.textContent =
                 // Backticks are an ES6 feature to create strings in JS.
                 // This string is to show the previous number and operator in the previous operand div, which will enhance user experience and visibility
-                `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+                `${this.getDisplayNumber(this.previousOperand)} ${this.operation} `
         } else {
             this.previousOperandTextElement.innerText = ''
+
         }
     }
 
     displayHistory() {
-        let historyString
-        historyString = `${this.currentOperand} ${this.previousOperand}` + '=' + resultData
+        // let historyString
+        // historyString = `${this.currentOperand} ${this.previousOperand} ` + '=' + resultData
         // this.previousOperandTextElement.textContent.toString() + this.currentOperand + '=' + this.currentOperandTextElement.textContent.toString()
-        console.log(operation)
-
+        // console.log(historyString)
+        resultData = this.currentOperand
+        historyData.push({ "expression": expressionData, "result": resultData })
+        let calc_history_string = ''
+        for (var key in historyData) {
+            calc_history_string += historyData[key]['expression'] + '=' + historyData[key]['result'] + "<br>"
+        }
+        history.innerHTML = calc_history_string
+        console.log(historyData)
     }
 }
 
@@ -138,6 +147,7 @@ const history = document.getElementById("history_log")
 var historyData = []
 var resultData = ''
 var expressionData = ''
+
 // const testButton = document.getElementsByClassName('button')
 // console.log(testButton)
 // console.log(numButtons)
