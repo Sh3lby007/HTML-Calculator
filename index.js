@@ -37,7 +37,7 @@ class Calculator {
         this.previousOperand = this.currentOperand
         // Clearing out the current operand, giving it an empty string for new number to be inputed.
         this.currentOperand = ''
-        expressionData = `${this.previousOperand} ${this.operation} ${this.currentOperandTextElement.textContent}`
+
     }
     // Method to take place whenever equals button gets clicked 
     compute() {
@@ -69,10 +69,13 @@ class Calculator {
         }
         // Set the current operand as the result of the computation
         this.currentOperand = computation
-        computation = resultData
-        this.operation = undefined
+        // this.operation = undefined
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
+        expressionData = `${prev} ${this.operation} ${this.currentOperandTextElement.textContent}`
+
+
+
     }
     // Method for the current and previous operand to display commas 
     getDisplayNumber(number) {
@@ -110,7 +113,6 @@ class Calculator {
                 `${this.getDisplayNumber(this.previousOperand)} ${this.operation} `
         } else {
             this.previousOperandTextElement.innerText = ''
-
         }
     }
 
@@ -126,7 +128,6 @@ class Calculator {
             calc_history_string += historyData[key]['expression'] + '=' + historyData[key]['result'] + "<br>"
         }
         history.innerHTML = calc_history_string
-        console.log(historyData)
     }
 }
 
@@ -144,9 +145,9 @@ const clearButton = document.querySelector('[data-clear]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
 const history = document.getElementById("history_log")
-var historyData = []
-var resultData = ''
-var expressionData = ''
+let historyData = []
+let resultData = ''
+let expressionData = ''
 
 // const testButton = document.getElementsByClassName('button')
 // console.log(testButton)
