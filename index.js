@@ -1,9 +1,15 @@
 class Calculator {
+    /* Declare all instance variables/properties first */
+    expressionData = ""
+    resultData = ""
+    historyData = []
+
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement
         this.currentOperandTextElement = currentOperandTextElement
         this.clear()
     }
+
     // Method to take place whenever user clicks the AC button.
     clear() {
         // Telling the currentOperand and previousOperand object to return an empty string and if the display is empty, nothing will happen when the AC button is clicked.
@@ -11,6 +17,7 @@ class Calculator {
         this.previousOperand = ''
         this.operation = undefined
     }
+
     // Method to take place whenever user clicks the Del button.
     delete() {
         // The string value in current operand will be reduced by one whenever del button is clicked
@@ -69,14 +76,16 @@ class Calculator {
         }
         // Set the current operand as the result of the computation
         this.currentOperand = computation
-        // this.operation = undefined
+
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
-        expressionData = `${prev} ${this.operation} ${this.currentOperandTextElement.textContent}`
 
+        this.expressionData = `${prev} ${this.operation} ${this.currentOperandTextElement.textContent}`
 
-
+        // Only reset the operation after creating the `this.expressionData`
+        this.operation = undefined
     }
+
     // Method for the current and previous operand to display commas 
     getDisplayNumber(number) {
         // Giving the number inputed a variable called string number and convert it to a string as it will be required to split the string before and after the period symbol to differentiate integer and decimals.
@@ -118,14 +127,17 @@ class Calculator {
 
     displayHistory() {
         // let historyString
-        // historyString = `${this.currentOperand} ${this.previousOperand} ` + '=' + resultData
+        // historyString = `${this.currentOperand} ${this.previousOperand} ` + '=' + this.resultData
         // this.previousOperandTextElement.textContent.toString() + this.currentOperand + '=' + this.currentOperandTextElement.textContent.toString()
         // console.log(historyString)
-        resultData = this.currentOperand
-        historyData.push({ "expression": expressionData, "result": resultData })
+        this.resultData = this.currentOperand
+
+        // Add a new calculation entry to the start of the history array
+        this.historyData.unshift({ "expression": this.expressionData, "result": this.resultData })
+
         let calc_history_string = ''
-        for (var key in historyData) {
-            calc_history_string += historyData[key]['expression'] + '=' + historyData[key]['result'] + "<br>"
+        for (var key in this.historyData) {
+            calc_history_string += this.historyData[key]['expression'] + '=' + this.historyData[key]['result'] + "<br>"
         }
         history.innerHTML = calc_history_string
     }
@@ -145,9 +157,6 @@ const clearButton = document.querySelector('[data-clear]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
 const history = document.getElementById("history_log")
-let historyData = []
-let resultData = ''
-let expressionData = ''
 
 // const testButton = document.getElementsByClassName('button')
 // console.log(testButton)
