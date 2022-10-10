@@ -76,12 +76,11 @@ class Calculator {
         }
         // Set the current operand as the result of the computation
         this.currentOperand = computation
-
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
 
         this.expressionData = `${prev} ${this.operation} ${this.currentOperandTextElement.textContent}`
-
+        this.resultData = computation
         // Only reset the operation after creating the `this.expressionData`
         this.operation = undefined
     }
@@ -126,16 +125,11 @@ class Calculator {
     }
 
     displayHistory() {
-        // let historyString
-        // historyString = `${this.currentOperand} ${this.previousOperand} ` + '=' + this.resultData
-        // this.previousOperandTextElement.textContent.toString() + this.currentOperand + '=' + this.currentOperandTextElement.textContent.toString()
-        // console.log(historyString)
-        this.resultData = this.currentOperand
-
         // Add a new calculation entry to the start of the history array
         this.historyData.unshift({ "expression": this.expressionData, "result": this.resultData })
 
         let calc_history_string = ''
+        // I want to check whether the current operand and previous operand has a value, if it does, execute the code below, if not, do not display the equals symbol.
         for (var key in this.historyData) {
             calc_history_string += this.historyData[key]['expression'] + '=' + this.historyData[key]['result'] + "<br>"
         }
@@ -145,9 +139,7 @@ class Calculator {
 
 // Assigning a variable according to the data-attribute in the html doc.
 
-// Usage of querySelectorAll is chosen over getElementsByClassName because
-// we can group the number buttons and operation buttons differently as they
-// have different purposes.
+// Usage of querySelectorAll is chosen over getElementsByClassName because we can group the number buttons and operation buttons differently as they have different purposes.
 
 const numButtons = document.querySelectorAll('[data-number]')
 const opButtons = document.querySelectorAll('[data-action]')
@@ -158,28 +150,11 @@ const previousOperandTextElement = document.querySelector('[data-previous-operan
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
 const history = document.getElementById("history_log")
 
-// const testButton = document.getElementsByClassName('button')
-// console.log(testButton)
-// console.log(numButtons)
-
-// for (const button of testButton)
-//     button.addEventListener('click', () => {
-//         console.log('click')
-//     })
-
-// numButtons.forEach(button => {
-//     button.addEventListener('click', () => {
-//         console.log('clickedddd')
-//     })
-// })
-
 // This calculator object is used to hookup the variables declared previously
-
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
 
 
-// Since querySelectorAll selects all data-number buttons and returns an array,
-// loop through all of them to attach click event handlers one by one.
+// Since querySelectorAll selects all data-number buttons and returns an array, loop through all of them to attach click event handlers one by one.
 for (const button of numButtons)    //For every button of the numButtons array
 
     // Event handler to append number value to display box on click
@@ -200,6 +175,7 @@ for (const button of opButtons) // For every button of the opButtons array
         // and then update the display accordingly
         calculator.chooseOperation(button.textContent)
         calculator.updateDisplay()
+        // calculator.displayHistory()
     })
 
 // Event handler to clear all value to display box on click.
@@ -224,5 +200,5 @@ equalsButton.addEventListener('click', () => {
     calculator.compute()
     calculator.updateDisplay()
     calculator.displayHistory()
+    calculator.clear()
 })
-
