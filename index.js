@@ -38,7 +38,7 @@ class Calculator {
         if (this.previousOperand !== '') {
             this.compute()
         }
-        //
+        // Declaring the operation paramter to become a class scope property
         this.operation = operation
         // Gives the same value to the previous operand after we have type in the current operand.
         this.previousOperand = this.currentOperand
@@ -78,8 +78,9 @@ class Calculator {
         this.currentOperand = computation
         // When the results gets displayed in the current operand, we want to clear out the previous operand to get ready for the next number, which will then push the computed result into the previous operand when any operators are clicked.
         this.previousOperand = ''
-
-        this.expressionData = `${prev} ${this.operation} ${this.currentOperandTextElement.textContent}`
+        // Give the expressionData the whole string of calculation 
+        this.expressionData = `${prev} ${this.operation} ${current}`
+        // Give the resultData the result of the computation
         this.resultData = computation
         // Only reset the operation after creating the `this.expressionData`
         this.operation = undefined
@@ -125,15 +126,18 @@ class Calculator {
     }
 
     displayHistory() {
+        let calc_history_string = ''
         // Add a new calculation entry to the start of the history array
         this.historyData.unshift({ "expression": this.expressionData, "result": this.resultData })
-
-        let calc_history_string = ''
-        // I want to check whether the current operand and previous operand has a value, if it does, execute the code below, if not, do not display the equals symbol.
+        // Check whether the expressionData and current operand has any value, if it does not, we dont wan't the array to be added
+        if (this.expressionData === '' && this.currentOperand === '') {
+            this.historyData.splice(0, this.historyData.length)
+        }
         for (var key in this.historyData) {
             calc_history_string += this.historyData[key]['expression'] + '=' + this.historyData[key]['result'] + "<br>"
         }
         history.innerHTML = calc_history_string
+        console.log(this.historyData)
     }
 }
 
@@ -175,7 +179,7 @@ for (const button of opButtons) // For every button of the opButtons array
         // and then update the display accordingly
         calculator.chooseOperation(button.textContent)
         calculator.updateDisplay()
-        // calculator.displayHistory()
+        calculator.displayHistory()
     })
 
 // Event handler to clear all value to display box on click.
