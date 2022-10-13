@@ -129,16 +129,17 @@ class Calculator {
         let calc_history_string = ''
         // Add a new calculation entry to the start of the history array
         this.historyData.unshift({ "expression": this.expressionData, "result": this.resultData })
-        // Check whether the expressionData and current operand has any value, if it does not, we dont wan't the array to be added
-        if (this.expressionData === '' && this.currentOperand === '') {
-            this.historyData.splice(0, this.historyData.length)
-        }
+        // Check whether the current operand has any value, if it does not, we dont wan't the array to be added
+        if (this.currentOperand === '' || this.expressionData === '')
+            this.historyData.shift()
+
         for (var key in this.historyData) {
             calc_history_string += this.historyData[key]['expression'] + '=' + this.historyData[key]['result'] + "<br>"
         }
         history.innerHTML = calc_history_string
         console.log(this.historyData)
     }
+
 }
 
 // Assigning a variable according to the data-attribute in the html doc.
