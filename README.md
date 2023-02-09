@@ -1,19 +1,11 @@
-# Template 2
-Vue3/Bulma template
+# Vanilla Calculator
 
+Simple Calculator with history built with vanilla JavaScript. It features a clean interface and basic arithmetic operations such as addition, subtraction, multiplication, and division.
 
-## Basic commands
-Get started by installing dependencies
-```shell
-npm i
-```
+## Features
 
-Run in development mode
-```shell
-npm run serve
-```
-
-Build for production deployment
-```shell
-npm run build
-```
+- Basic arithmetic operations: addition, subtraction, multiplication, and division
+- Clean and minimalist interface
+- Responsive design for optimal display on desktop and mobile devices
+- Supports decimal numbers and negative numbers
+- Display calculation history
